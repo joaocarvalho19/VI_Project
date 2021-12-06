@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        .vis {
+            height: 500px;
+            background-color: azure;
+        }
+        
+    </style>
+    <script>
+        function wel() {
+            document.getElementById("welcome").style.display = "block";
+            document.getElementById("vis").style.display = "none";
+        }
+        function hide() {
+            document.getElementById("welcome").style.display = "none";
+            document.getElementById("vis").style.display = "block";
+        }
+    </script>
+</head>
+<title>Forest Fires</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+<body>
+
+<!-- Navbar (sit on top) -->
+<div class="w3-top">
+  <div class="w3-bar w3-white w3-wide w3-padding w3-card">
+    <a href="#home" onclick="wel()" class="w3-bar-item w3-button"><b>FF</b> Forest Fires</a>
+    <!-- Float links to the right. Hide them on small screens -->
+    <div class="w3-right w3-hide-small">
+      <a href="#number" onclick="hide()" class="w3-bar-item w3-button">Quantidade de Incêndios</a>
+      <a href="#search" onclick="hide()" class="w3-bar-item w3-button">Procura de Incêndios</a>
+      <a href="#search" onclick="hide()" class="w3-bar-item w3-button">Àrea queimada</a>
+      <a href="#search" onclick="hide()" class="w3-bar-item w3-button">Média de valores</a>
+      <a href="#about" class="w3-bar-item w3-button">Sobre</a>
+    </div>
+  </div>
+</div>
+
+<!-- Header -->
+
+
+<!-- Page content -->
+<div class="w3-content w3-padding" style="max-width:1564px">
+
+  <!-- Project Section -->
+  <div class="w3-container w3-padding-32" id="projects">
+    <h3 class="w3-border-bottom w3-border-light-grey w3-padding-16">Gráfico</h3>
+  </div>
+
+  <!-- Visualization -->
+  <div id="vis" class="vis" style="display: none;">
+    
+  </div>
+  <div id="welcome">
+    <h1 style="text-align:center; font-size: 250px;">Welcome</h1>
+  </div>
+
+  <!-- About Section -->
+  <div class="w3-container w3-padding-32" id="about">
+    <h3 class="w3-border-bottom w3-border-light-grey w3-padding-16">About</h3>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Excepteur sint
+      occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+      laboris nisi ut aliquip ex ea commodo consequat.
+    </p>
+  </div>
+
+<!-- End page content -->
+
+
+<!-- Footer -->
+
+</body>
+</html>
