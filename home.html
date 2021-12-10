@@ -1,29 +1,16 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Load d3.js -->
     <script src="http://d3js.org/d3.v6.js"></script>
-    <style>
-        .vis {
-            height: 500px;
-            background-color: azure;
-        }
-        
-    </style>
-    <script>
-        function wel() {
-            document.getElementById("welcome").style.display = "block";
-            document.getElementById("vis").style.display = "none";
-        }
-        function hide() {
-            document.getElementById("welcome").style.display = "none";
-            document.getElementById("vis").style.display = "block";
-        }
-    </script>
+    <link rel="stylesheet" href="ff.css">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 </head>
 <title>Forest Fires</title>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 
 <body>
@@ -34,17 +21,16 @@
     <a href="#home" onclick="wel()" class="w3-bar-item w3-button"><b>FF</b> Forest Fires</a>
     <!-- Float links to the right. Hide them on small screens -->
     <div class="w3-right w3-hide-small">
-      <a href="#number" onclick="hide()" class="w3-bar-item w3-button">Quantidade de Incêndios</a>
-      <a href="#search" onclick="hide()" class="w3-bar-item w3-button">Procura de Incêndios</a>
-      <a href="#search" onclick="hide()" class="w3-bar-item w3-button">Àrea queimada</a>
-      <a href="#search" onclick="hide()" class="w3-bar-item w3-button">Média de valores</a>
+      <a href="#number" onclick="show(1)" class="w3-bar-item w3-button">Quantidade de Incêndios</a>
+      <a href="#search" onclick="show(2)" class="w3-bar-item w3-button">Procura de Incêndios</a>
+      <a href="#area" onclick="show(3)" class="w3-bar-item w3-button">Àrea queimada</a>
+      <a href="#mean" onclick="show(4)" class="w3-bar-item w3-button">Média de valores</a>
       <a href="#about" class="w3-bar-item w3-button">Sobre</a>
     </div>
   </div>
 </div>
 
 <!-- Header -->
-
 
 <!-- Page content -->
 <div class="w3-content w3-padding" style="max-width:1564px">
@@ -54,12 +40,73 @@
     <h3 class="w3-border-bottom w3-border-light-grey w3-padding-16">Gráfico</h3>
   </div>
 
-  <!-- Visualization -->
-  <div id="vis" class="vis">
-    <div id="g1" style="margin-left: 30;">
-
+  <!-- Visualizations -->
+  <div class="container">
+    <div id="vis_1" class="vis row" style="display: none;">
+        <div class="col-sm-8" id="g_1">col-8</div>
+        <div class="col-sm-4" id="inputs_1">col-4</div>
     </div>
   </div>
+  <div class="container">
+    <div id="vis_2" class="vis row">
+        <div class="col-sm-8" id="g_2"></div>
+        <div class="col-sm-4" id="inputs_2">
+          <form id="form1">
+            <div class="form-group">
+              <h2>Fatores naturais</h2>
+              <div class="row">
+                <div class="col-6 col-md-4">
+                  <label for="input_vento">Vento</label>
+                  <input class="form-control" id="input_vento" placeholder="Ex: 0-12">
+                </div>
+                <div class="col-6 col-md-4">
+                  <label for="input_hum">Humidade</label>
+                  <input class="form-control" id="input_hum" placeholder="Ex: 2-22">
+                </div>
+                <div class="col-6 col-md-4">
+                  <label for="input_temp">Temp</label>
+                  <input class="form-control" id="input_temp" placeholder="Ex: 14-22">
+                </div>
+                
+              </div>
+              <label for="input_chuva">Chuva</label>
+              <input class="form-control" id="input_chuva" placeholder="Ex: 14-22">
+              <h2>Índices</h2>
+              <div class="row">
+                <div class="col-6 col-md-4">
+                  <label for="exampleFormControlInput1">FFNC</label>
+                  <input class="form-control" id="exampleFormControlInput1" placeholder="Ex: 20.2-56.4">
+                </div>
+                <div class="col-6 col-md-4">
+                  <label for="exampleFormControlInput1">DMC</label>
+                  <input class="form-control" id="exampleFormControlInput1" placeholder="Ex: 100.4-249.7">
+                </div>
+                <div class="col-6 col-md-4">
+                  <label for="exampleFormControlInput1">DC</label>
+                  <input class="form-control" id="exampleFormControlInput1" placeholder="Ex: 356.0-700.0">
+                </div>
+                
+              </div>
+              <label for="exampleFormControlInput1">ISI</label>
+              <input class="form-control" id="exampleFormControlInput1" placeholder="Ex: 0.0-40.1">
+              
+            </div>
+            <label for="exampleFormControlInput1">Intervalo de Meses</label>
+            <input class="form-control" id="exampleFormControlInput1" placeholder="Ex: jan-aug">
+            <button type="button" id="updatePlot" class="btn btn-primary">Pesquisar</button>
+          </form>
+        </div>
+    </div>
+  </div>
+  <div id="vis_3" class="vis row" style="display: none;">
+      <div class="col-sm-8" id="g_3">col-8</div>
+      <div class="col-sm-4" id="inputs_3">col-4</div>
+  </div>
+  <div id="vis_4" class="vis row" style="display: none;">
+      <div class="col-sm-8" id="g_4">col-8</div>
+      <div class="col-sm-4" id="inputs_4">col-4</div>
+  </div>
+
 
   <div id="welcome" style="display: none;">
     <h1 style="text-align:center; font-size: 250px;">Welcome</h1>
@@ -80,47 +127,5 @@
 <!-- Footer -->
 
 </body>
-<script>
-  // set the dimensions and margins of the graph
-  var margin = {top: 50, right: 50, bottom: 50, left: 50},
-      width = 700 - margin.left - margin.right,
-      height = 500 - margin.top - margin.bottom;
-
-    // append the svg object to the body of the page
-    var svg = d3.select("#g1")
-      .append("svg")
-        .attr("width", width + margin.left + margin.right)
-        .attr("height", height + margin.top + margin.bottom)
-      .append("g")
-        .attr("transform",
-              "translate(" + margin.left + "," + margin.top + ")");
-    
-    // Add X axis
-    var x = d3.scaleLinear()
-      .domain([1, 9])
-      .range([ 0, width ]);
-    svg.append("g")
-      .attr("transform", "translate(0," + height + ")")
-      .call(d3.axisBottom(x));
-
-    // Add Y axis
-    var y = d3.scaleLinear()
-      .domain([1, 9])
-      .range([ height, 0]);
-    svg.append("g")
-      .call(d3.axisLeft(y));
-
-  //Read the data
-
-  /*d3.csv("dataset/forestfires.csv", function(data) {
-
-    for(var i = 0; i<data.length; i++){
-        d3.select("body")
-        .append("p")
-        .text(data[i]["X"]);
-    }
-    
-  });*/
-    
-</script>
+<script src="ff.js"></script>
 </html>
