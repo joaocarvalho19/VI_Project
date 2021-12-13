@@ -1,4 +1,4 @@
-<div class="col-sm-8" id="g_2"></div>\
+document.write('<div class="col-sm-8" id="g_2"></div>\
         <div class="col-sm-4" id="inputs_2">\
           <form id="form1">\
             <div class="form-group">\
@@ -46,4 +46,5 @@
             <br>\
             <button type="button" id="updatePlot" class="btn btn-primary">Pesquisar</button>\
           </form>\
-        </div>
+        </div>\
+');

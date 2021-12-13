@@ -62,6 +62,7 @@ function updatePlot(data) {
     //clean circles
     d3.selectAll("circle").remove()
 
+    var data_radius = {};
     // Add X axis
     var x = d3.scaleLinear()
         .domain([1, 9])
@@ -87,8 +88,15 @@ function updatePlot(data) {
         .append("circle")
             .attr("cx", function (d) {return x(parseInt(d.X)); } )
             .attr("cy", function (d) { return y(parseInt(d.Y)); } )
-            .attr("r", 5)
-            .style("fill", "#69b3a2")
+            .attr("r", function (d) {
+                if (!data_radius.hasOwnProperty((d.X,d.Y))){
+                    data_radius[(d.X,d.Y)] = 1
+                }
+                else{
+                    data_radius[(d.X,d.Y)] += 1
+                }
+                return data_radius[(d.X,d.Y)] * 2; })
+            .style("fill", "steelblue")
         
     }
 // All data when page loads
