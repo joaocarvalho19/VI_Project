@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Load d3.js -->
-    <script src="http://d3js.org/d3.v6.js"></script>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
     <link rel="stylesheet" href="ff.css">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -21,11 +21,10 @@
     <a href="#home" onclick="wel()" class="w3-bar-item w3-button"><b>FF</b> Forest Fires</a>
     <!-- Float links to the right. Hide them on small screens -->
     <div class="w3-right w3-hide-small">
-      <a href="#number" onclick="show(1)" class="w3-bar-item w3-button">Quantidade de Incêndios</a>
-      <a href="#search" onclick="show(2)" class="w3-bar-item w3-button">Procura de Incêndios</a>
-      <a href="#area" onclick="show(3)" class="w3-bar-item w3-button">Àrea queimada</a>
-      <a href="#mean" onclick="show(4)" class="w3-bar-item w3-button">Média de valores</a>
-      <a href="#about" class="w3-bar-item w3-button">Sobre</a>
+      <a href="#search" onclick="show(1)" class="w3-bar-item w3-button">Procura de Incêndios</a>
+      <a href="#area" onclick="show(2)" class="w3-bar-item w3-button">Àrea queimada</a>
+      <a href="#mean" onclick="show(3)" class="w3-bar-item w3-button">Média de valores</a>
+      <a href="#about" class="w3-bar-item w3-button">Help</a>
     </div>
   </div>
 </div>
@@ -40,29 +39,58 @@
     <h3 class="w3-border-bottom w3-border-light-grey w3-padding-16">Gráfico</h3>
   </div>
 
-  <!-- Visualizations -->
+  
+
   <div class="container">
-    <div id="vis_1" class="vis row" style="display: none;">
-        <div class="col-sm-8" id="g_1">col-8</div>
-        <div class="col-sm-4" id="inputs_1">col-4</div>
-    </div>
-  </div>
-  <div class="container">
-    <div id="vis_2" class="vis row">
+    <div id="vis_1" class="vis row" >
       <script src="scatter_plot.js"></script>
     </div>
-    
   </div>
-  <div data-include="scatter_plot.html"></div>
-  <div id="vis_3" class="vis row" style="display: none;">
-      <div class="col-sm-8" id="g_3">col-8</div>
-      <div class="col-sm-4" id="inputs_3">col-4</div>
-  </div>
-  <div id="vis_4" class="vis row" style="display: none;">
-      <div class="col-sm-8" id="g_4">col-8</div>
-      <div class="col-sm-4" id="inputs_4">col-4</div>
+  
+  <div class="container">
+    <div id="vis_2" class="vis row" style="display: none;">
+        <div class="col-sm-8" id="g_2">col-8</div>
+        <div class="col-sm-4" id="inputs_2">col-4</div>
+    </div>
   </div>
 
+  <div class="container">
+    <div id="vis_3" class="vis row" style="display: none;">
+      <div class="col-sm-8" id="g_3"></div>
+      <div class="col-sm-4" id="inputs_3">
+        <form id="form1">
+          <div class="form-group">
+            <h3 style="text-align: center" class="text-align: center">Tempo</h3>
+              <div>
+                <label for="input_3_months">Intervalo de Meses</label>
+                <input class="form-control" id="input_3_months" placeholder="Ex: jan-aug">
+              </div>
+              <h3 style="text-align: center" class="text-align: center">Àrea</h3>
+              <div>
+                <label for="input_3_area">Àrea ardida</label>
+                <input class="form-control" id="input_3_area" placeholder="Ex: 0-544.9">
+              </div>
+              <h3 style="text-align: center" class="text-align: center">Coordenadas</h3>
+              <div class="row">
+                <div class="col-6 col-md-4">
+                  <label for="input_X">X</label>
+                  <input class="form-control" id="input_3_X" placeholder="Ex: 7">
+                </div>
+                <div class="col-6 col-md-4">
+                  <label for="input_Y">Y</label>
+                  <input class="form-control" id="input_3_Y" placeholder="Ex: 5">
+                </div>                
+              </div>
+              
+            </div>
+          <br>
+          <button type="button" id="updateSpider" class="btn btn-primary">Pesquisar</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  
 
   <div id="welcome" style="display: none;">
     <h1 style="text-align:center; font-size: 250px;">Welcome</h1>
@@ -70,10 +98,20 @@
 
   <!-- About Section -->
   <div class="w3-container w3-padding-32" id="about">
-    <h3 class="w3-border-bottom w3-border-light-grey w3-padding-16">About</h3>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Excepteur sint
-      occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-      laboris nisi ut aliquip ex ea commodo consequat.
+    <h3 class="w3-border-bottom w3-border-light-grey w3-padding-16">Help</h3>
+    <p><b>1. X</b> - x-axis spatial coordinate within the Montesinho park map: 1 to 9   |     
+      <b>2. Y</b> - y-axis spatial coordinate within the Montesinho park map: 2 to 9   |  
+      <b>3. month</b> - month of the year: 'jan' to 'dec'   | 
+      <b>4. day</b> - day of the week: 'mon' to 'sun'   | 
+      <b>5. FFMC</b> - FFMC(Fine Fuel Moisture Code) index from the FWI system, this code is an indicator of the relative ease of ignition and the flammability of fuel: 18.7 to 96.20   | 
+      <b>6. DMC </b>- DMC(Duff Moisture Code) index from the FWI system, this code gives an indication of fuel consumption in moderate duff layers and medium-size woody material: 1.1 to 291.3   | 
+      <b>7. DC</b> - DC(Drought Code) index from the FWI system, this code is a useful indicator of seasonal drought effects on forest fuels and the amount of smoldering in deep duff layers and large logs: 7.9 to 860.6   | 
+      <b>8. ISI</b> - ISI(Initial Spread Index) index from the FWI system, is a numeric rating of the expected rate of fire spread: 0.0 to 56.10   | 
+      <b>9. temp</b> - temperature in Celsius degrees: 2.2 to 33.30   | 
+      <b>10. RH</b> - relative humidity in %: 15.0 to 100   | 
+      <b>11. wind</b> - wind speed in km/h: 0.40 to 9.40   | 
+      <b>12. rain</b> - outside rain in mm/m2 : 0.0 to 6.4   | 
+      <b>13. area</b> - the burned area of the forest (in ha): 0.00 to 1090.84.
     </p>
   </div>
 
@@ -84,4 +122,7 @@
 
 </body>
 <script src="ff.js"></script>
+<script src="scatter_plotJS.js"></script>
+<script src="star_plotJS.js"></script>
+<script type="text/javascript" src="script_spider.js"></script>
 </html>
