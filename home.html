@@ -21,9 +21,9 @@
     <a href="#home" onclick="wel()" class="w3-bar-item w3-button"><b>FF</b> Forest Fires</a>
     <!-- Float links to the right. Hide them on small screens -->
     <div class="w3-right w3-hide-small">
-      <a href="#search" onclick="show(1)" class="w3-bar-item w3-button">Procura de Incêndios</a>
-      <a href="#area" onclick="show(2)" class="w3-bar-item w3-button">Àrea queimada</a>
-      <a href="#mean" onclick="show(3)" class="w3-bar-item w3-button">Média de valores</a>
+      <a href="#search" onclick="show(1)" class="w3-bar-item w3-button">Fires Search</a>
+      <a href="#area" onclick="show(2)" class="w3-bar-item w3-button">Burned Area</a>
+      <a href="#mean" onclick="show(3)" class="w3-bar-item w3-button">Mean Values</a>
       <a href="#about" class="w3-bar-item w3-button">Help</a>
     </div>
   </div>
@@ -36,13 +36,13 @@
 
   <!-- Project Section -->
   <div class="w3-container w3-padding-32" id="projects">
-    <h3 class="w3-border-bottom w3-border-light-grey w3-padding-16">Gráfico</h3>
+    <h3 class="w3-border-bottom w3-border-light-grey w3-padding-16">Visualization</h3>
   </div>
 
   
 
   <div class="container">
-    <div id="vis_1" class="vis row" >
+    <div id="vis_1" class="vis row">
       <script src="scatter_plot.js"></script>
     </div>
   </div>
@@ -60,23 +60,59 @@
       <div class="col-sm-4" id="inputs_3">
         <form id="form1">
           <div class="form-group">
-            <h3 style="text-align: center" class="text-align: center">Tempo</h3>
-              <div>
-                <label for="input_3_months">Intervalo de Meses</label>
-                <input class="form-control" id="input_3_months" placeholder="Ex: jan-aug">
+            <h3 style="text-align: center" class="text-align: center">Month Interval</h3>
+            <div class="row">
+              <div class="col-6 col-md-6">
+                <label for="input_3_months1" class="form-label">First</label>
+                <input class="form-control" list="months_3_Data1" id="input_3_months1" placeholder="Type first month...">
+                <datalist id="months_3_Data1">
+                  <option value="January">
+                  <option value="February">
+                  <option value="March">
+                  <option value="April">
+                  <option value="May">
+                  <option value="June">
+                  <option value="July">
+                  <option value="August">
+                  <option value="September">
+                  <option value="October">
+                  <option value="November">
+                  <option value="December">
+                </datalist>
               </div>
-              <h3 style="text-align: center" class="text-align: center">Àrea</h3>
-              <div>
-                <label for="input_3_area">Àrea ardida</label>
-                <input class="form-control" id="input_3_area" placeholder="Ex: 0-544.9">
+              <div class="col-6 col-md-6">
+                <label for="input_3_months2" class="form-label">Last</label>
+                <input class="form-control" list="months_3_Data2" id="input_3_months2" placeholder="Type last month...">
+                <datalist id="months_3_Data2">
+                  <option value="January">
+                  <option value="February">
+                  <option value="March">
+                  <option value="April">
+                  <option value="May">
+                  <option value="June">
+                  <option value="July">
+                  <option value="August">
+                  <option value="September">
+                  <option value="October">
+                  <option value="November">
+                  <option value="December">
+                </datalist>
               </div>
-              <h3 style="text-align: center" class="text-align: center">Coordenadas</h3>
+              </div>
+              <br>
+              <h3 style="text-align: center" class="text-align: center">Burned Area</h3>
+              <div class="slidecontainer">
+                <input type="range" min="0" max="1091" value="0" class="slider" id="input_3_area">
+              </div>
+              <p id="demo"></p>
+              <br>
+              <h3 style="text-align: center" class="text-align: center">Coordinates</h3>
               <div class="row">
-                <div class="col-6 col-md-4">
+                <div class="col-6 col-md-6">
                   <label for="input_X">X</label>
                   <input class="form-control" id="input_3_X" placeholder="Ex: 7">
                 </div>
-                <div class="col-6 col-md-4">
+                <div class="col-6 col-md-6">
                   <label for="input_Y">Y</label>
                   <input class="form-control" id="input_3_Y" placeholder="Ex: 5">
                 </div>                
@@ -84,7 +120,7 @@
               
             </div>
           <br>
-          <button type="button" id="updateSpider" class="btn btn-primary">Pesquisar</button>
+          <button type="button" id="updateSpider" class="btn btn-primary">Search</button>
         </form>
       </div>
     </div>

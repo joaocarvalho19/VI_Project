@@ -49,22 +49,24 @@ function readData() {
     else{
         input_1_isi = [0,57]
     }
-    let months = {"jan": 0, "fev": 1, "mar": 2, "apr": 3, "may": 4, "jun": 5, "jul": 6, "aug": 7, "sep": 8, "oct": 9, "nov": 10, "dec": 11}
-    if (document.getElementById("input_1_months").value){
-        input_1_months = document.getElementById("input_1_months").value.split("-")
-        if(input_1_months[0] in months && input_1_months[1] in months){
-            first = months[input_1_months[0]]
-            second = months[input_1_months[1]]
+    let months = {"jan": 0, "feb": 1, "mar": 2, "apr": 3, "may": 4, "jun": 5, "jul": 6, "aug": 7, "sep": 8, "oct": 9, "nov": 10, "dec": 11}
+    let input_1_months;
+    if (document.getElementById("input_1_months1").value &&  document.getElementById("input_1_months2").value){
+        first_mon = document.getElementById("input_1_months1").value.toLowerCase().substring(0, 3)
+        last_mon = document.getElementById("input_1_months2").value.toLowerCase().substring(0, 3)
+        if(first_mon in months && last_mon in months){
+            first = months[first_mon]
+            last = months[last_mon]
 
             // Ex. jan-may
-            if (first <= second){
-                input_1_months = Array(second-first+1).fill().map((x,i)=>i+first)
+            if (first <= last){
+                input_1_months = Array(last-first+1).fill().map((x,i)=>i+first)
                 console.log(input_1_months)
             }
             // Ex. dec-fev
             else{
                 input_1_months = Array(Object.keys(months).length-first).fill().map((x,i)=>i+first)
-                input_1_months = input_1_months.concat(Array(second+1).fill().map((x,i)=>i))
+                input_1_months = input_1_months.concat(Array(last+1).fill().map((x,i)=>i))
                 console.log(input_1_months)
             }
             
@@ -76,7 +78,6 @@ function readData() {
     }
     else{
         input_1_months = Array(12).fill().map((x,i)=>i)
-        console.log(input_1_months)
     }
 
     let final_data = [];
@@ -149,7 +150,7 @@ var showTooltip = function(event, d) {
     .duration(200)
   tooltip
     .style("opacity", 1)
-    .html("Quantidade: " + data_radius[d.X.toString() + d.Y.toString()])
+    .html("Quantity: " + data_radius[d.X.toString() + d.Y.toString()])
     .style("left", (event.x+30) + "px")
     .style("top", (event.y+30) + "px")
 }
@@ -226,12 +227,4 @@ var hideTooltip = function(event, d) {
         }
     })
 //};
-/*var _img = document.getElementById('park');
-console.log(_img) 
-    var newImg = new Image;
-    newImg.onload = function() {
-        _img.src = this.src;
-    }*/
-    //newImg.src = 'park.png';
-// Add an event listener to the button created in the html part
 d3.select("#updatePlot").on("click", readData )
