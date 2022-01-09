@@ -61,9 +61,9 @@ function readDataSpider() {
     dataSpider = []
 	temp_data = []
     //Filter data
-    data = d3.csv("dataset/forestfires.csv").then(function(data){
+    data = d3.csv("dataset/forestfires.csv", function(data){
 		means = {"FFMC": [0,0], "DMC": [0,0], "DC": [0,0], "ISI": [0,0], "temp": [0,0], "RH": [0,0], "wind": [0,0]}
-		highest_value = {"FFMC": 96.20, "DMC": 291.3, "DC": 860.6, "ISI": 56.10, "temp": 33.30, "RH": 100, "wind": 9.40, "rain": 6.4}
+		high_low_value = {"FFMC": [96.20, 18.7], "DMC": [291.3, 1.1], "DC": [860.6, 7.9], "ISI": [56.10, 0], "temp": [33.30, 2.2], "RH": [100, 0], "wind": [9.40, 0.4], "rain": [6.4,0]}
         for(var i=0; i<data.length; i++){
 			if(input_3_area <= parseFloat(data[i].area)) {
 				if (coord){
@@ -87,7 +87,7 @@ function readDataSpider() {
 		
         for(j in means){
 			if (means[j][1] != 0){
-				per_mean = (means[j][0] / means[j][1]) / highest_value[j]
+				per_mean = ((means[j][0] / means[j][1]) - high_low_value[j][1]) / (high_low_value[j][0] - high_low_value[j][1])
 				temp_data.push({axis: j, value: per_mean})
 			}
 			else{
@@ -102,7 +102,7 @@ function readDataSpider() {
 }
 dataSpider = []
 temp_data = []
-d3.csv("dataset/forestfires.csv").then(function(data){
+d3.csv("dataset/forestfires.csv", function(data){
 	readDataSpider(data)
 })
 

@@ -5,11 +5,11 @@ document.write('<div class="col-sm-8" id="g_1"><img id="park"></img></div>\
               <h3 style="text-align: center">Natural factors</h3 class="text-align: center">\
               <div class="row">\
                 <div class="col-6 col-md-4">\
-                  <label for="input_1_vento">Vento(Km/h)</label>\
-                  <input class="form-control" id="input_1_vento" placeholder="Ex: 0-12">\
+                  <label for="input_1_wind">Wind(Km/h)</label>\
+                  <input class="form-control" id="input_1_wind" placeholder="Ex: 0-12">\
                 </div>\
                 <div class="col-6 col-md-4">\
-                  <label for="input_1_hum">Humidade(%)</label>\
+                  <label for="input_1_hum">RH(%)</label>\
                   <input class="form-control" id="input_1_hum" placeholder="Ex: 2-22">\
                 </div>\
                 <div class="col-6 col-md-4">\

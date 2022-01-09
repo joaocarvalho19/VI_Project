@@ -1,9 +1,9 @@
 function readData() {
-    if (document.getElementById("input_1_vento").value){
-        input_1_vento = document.getElementById("input_1_vento").value.split("-")
+    if (document.getElementById("input_1_wind").value){
+        input_1_wind = document.getElementById("input_1_wind").value.split("-")
     }
     else{
-        input_1_vento = [0,10]
+        input_1_wind = [0,10]
     }
     if (document.getElementById("input_1_hum").value){
         input_1_hum = document.getElementById("input_1_hum").value.split("-")
@@ -83,10 +83,10 @@ function readData() {
     let final_data = [];
 
     //Filter data
-    data = d3.csv("dataset/forestfires.csv").then(function(data){
+    data = d3.csv("dataset/forestfires.csv", function(data){
         for(var i=0; i<data.length; i++){
             if(parseFloat(data[i].area) > 0) {
-                if((parseFloat(input_1_vento[0]) <= parseFloat(data[i].wind) && parseFloat(data[i].wind) <= parseFloat(input_1_vento[1])) && (parseFloat(input_1_hum[0]) <= parseFloat(data[i].RH) && parseFloat(data[i].RH) <= parseFloat(input_1_hum[1])) && (parseFloat(input_1_temp[0]) <= parseFloat(data[i].temp) && parseFloat(data[i].temp) <= parseFloat(input_1_temp[1])) && (parseFloat(input_1_rain[0]) <= parseFloat(data[i].rain) && parseFloat(data[i].rain) <= parseFloat(input_1_rain[1]))){
+                if((parseFloat(input_1_wind[0]) <= parseFloat(data[i].wind) && parseFloat(data[i].wind) <= parseFloat(input_1_wind[1])) && (parseFloat(input_1_hum[0]) <= parseFloat(data[i].RH) && parseFloat(data[i].RH) <= parseFloat(input_1_hum[1])) && (parseFloat(input_1_temp[0]) <= parseFloat(data[i].temp) && parseFloat(data[i].temp) <= parseFloat(input_1_temp[1])) && (parseFloat(input_1_rain[0]) <= parseFloat(data[i].rain) && parseFloat(data[i].rain) <= parseFloat(input_1_rain[1]))){
                 
                     if((parseFloat(input_1_ffnc[0]) <= parseFloat(data[i].FFMC) && parseFloat(data[i].FFMC) <= parseFloat(input_1_ffnc[1])) && (parseFloat(input_1_dmc[0]) <= parseFloat(data[i].DMC) && parseFloat(data[i].DMC) <= parseFloat(input_1_dmc[1])) && (parseFloat(input_1_dc[0]) <= parseFloat(data[i].DC) && parseFloat(data[i].DC) <= parseFloat(input_1_dc[1])) && (parseFloat(input_1_isi[0]) <= parseFloat(data[i].ISI) && parseFloat(data[i].ISI) <= parseFloat(input_1_isi[1]))){
                         
@@ -106,24 +106,24 @@ function readData() {
 }
 
 // set the dimensions and margins of the graph
-var margin = {top: 10, right: 70, bottom: 20, left: 20},
-width = 800 - margin.left - margin.right,
-height = 460 - margin.top - margin.bottom;
+var marginSca = {top: 10, right: 70, bottom: 20, left: 20},
+widthSca = 800 - marginSca.left - marginSca.right,
+heightSca = 460 - marginSca.top - marginSca.bottom;
 
 // append the svg object to the body of the page
 var svg = d3.select("#g_1")
 .append("svg")
-  .attr("width", width + margin.left + margin.right)
-  .attr("height", height + margin.top + margin.bottom)
+  .attr("width", widthSca + marginSca.left + marginSca.right)
+  .attr("height", heightSca + marginSca.top + marginSca.bottom)
   .style("background", "park.png")
 .append("g")
   .attr("transform",
-        "translate(" + margin.left + "," + margin.top + ")");
+        "translate(" + marginSca.left + "," + marginSca.top + ")");
 
 svg.append('svg:image')
 .attr('xlink:href', 'images/new_park.png')
-.attr("width", width)
-.attr("height", height)
+.attr("width", widthSca)
+.attr("height", heightSca)
 .attr("x", 0)
 .attr("y", 0);
 
@@ -144,22 +144,22 @@ function updatePlot(data) {
     .style("color", "white")
 
 // -2- Create 3 functions to show / update (when mouse move but stay on same circle) / hide the tooltip
-var showTooltip = function(event, d) {
+var showTooltip = function(d) {
   tooltip
     .transition()
-    .duration(200)
+    .duration(100)
   tooltip
     .style("opacity", 1)
     .html("Quantity: " + data_radius[d.X.toString() + d.Y.toString()])
-    .style("left", (event.x+30) + "px")
-    .style("top", (event.y+30) + "px")
+    .style("left", (d3.event.pageX) + "px")
+    .style("top", (d3.event.pageY) + "px")
 }
-var moveTooltip = function(event, d) {
+var moveTooltip = function(d) {
   tooltip
-    .style("left", (event.x+30) + "px")
-    .style("top", (event.y+30) + "px")
+    .style("left", (d3.event.pageX) + "px")
+    .style("top", (d3.event.pageY) + "px")
 }
-var hideTooltip = function(event, d) {
+var hideTooltip = function(d) {
   tooltip
     .transition()
     .duration(200)
@@ -169,15 +169,15 @@ var hideTooltip = function(event, d) {
     // Add X axis
     var x = d3.scaleLinear()
         .domain([1, 9])
-        .range([ 0, width ]);
+        .range([ 0, widthSca ]);
     var xAxis = svg.append("g")
-        .attr("transform", "translate(0," + height + ")")
+        .attr("transform", "translate(0," + heightSca + ")")
         .call(d3.axisBottom(x));
 
     // Add Y axis
     var y = d3.scaleLinear()
         .domain([1, 9])
-        .range([ height, 0]);
+        .range([ heightSca, 0]);
     svg.append("g")
         .call(d3.axisLeft(y));
     
@@ -217,14 +217,14 @@ var hideTooltip = function(event, d) {
 // All data when page loads
 //window.onload = function() {
     let final_data = [];
-    d3.csv("dataset/forestfires.csv").then(function(data){
+    d3.csv("dataset/forestfires.csv", function(data){
         for(var i=0; i<data.length; i++){
             if(parseFloat(data[i].area) > 0) {
                 final_data.push(data[i])
             }
-        updatePlot(final_data)
-        
         }
+        console.log(final_data)
+        updatePlot(final_data)
     })
 //};
 d3.select("#updatePlot").on("click", readData )
